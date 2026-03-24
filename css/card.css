@@ -49,7 +49,7 @@
     }
   
     & .card-front {
-      background: #111;
+      background: var(--color-card-front);
       border-color: var(--color-accent);
       transform: rotateY(180deg);
     }
