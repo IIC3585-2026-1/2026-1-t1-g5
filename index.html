@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flag Memory</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <!-- <link rel="stylesheet" href="css/card.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css"> -->
+</head>
+<body>
+
+  <div class="game-wrapper">
+
+    <header class="hud">
+      <div class="hud-item">
+        <span class="hud-label">SCORE</span>
+        <span class="hud-value" id="score">0</span>
+      </div>
+      <h1 class="hud-title">FLAG MEMORY</h1>
+      <div class="hud-item">
+        <span class="hud-label">MOVES</span>
+        <span class="hud-value" id="moves">0</span>
+      </div>
+    </header>
+
+    <main class="board" id="board"></main>
+
+    <footer class="controls">
+      <button class="btn-pixel" id="restart-btn">↺ RESTART</button>
+    </footer>
+
+    <div class="overlay hidden" id="overlay">
+      <div class="overlay-box">
+        <p class="overlay-title">¡GANASTE!</p>
+        <div class="stars" id="stars">★★★</div>
+        <p class="overlay-score">SCORE: <span id="final-score">0</span></p>
+        <p class="overlay-moves">MOVES: <span id="final-moves">0</span></p>
+        <button class="btn-pixel" id="play-again-btn">↺ JUGAR DE NUEVO</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/board.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
