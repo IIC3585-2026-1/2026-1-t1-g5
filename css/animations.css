@@ -1,0 +1,100 @@
+/* Animación tipo "pulse" para indicar un match
+   - Parte en escala normal (1)
+   - En la mitad crece ligeramente (1.1)
+   - Vuelve a escala normal al final */
+
+@keyframes match-pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.1); }
+}
+
+/* Animación de "shake" para indicar error (no match de cartas)
+   - Parte en posición original
+   - Se mueve a la izquierda
+   - Luego a la derecha
+   - Finalmente vuelve al centro */
+
+@keyframes shake {
+  0%   { transform: translateX(0); }
+  25%  { transform: translateX(-6px); }
+  75%  { transform: translateX(6px); }
+  100% { transform: translateX(0); }
+}
+
+/* Animación de entrada tipo "drop":
+   el elemento aparece desde arriba, con un leve zoom y fade-in,
+   hasta su posición y tamaño normal */
+
+@keyframes win-drop {
+  0% {
+    opacity: 0;
+    transform: translateY(-48px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Animación tipo "flash":
+   aparece rápidamente desde abajo, se mantiene visible,
+   y luego desaparece hacia arriba con un leve zoom */
+
+@keyframes flash-in-out {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 8px) scale(0.92);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -8px) scale(1.06);
+  }
+}
+
+/* Aplica animación de "pulse" a cartas que hicieron match */
+
+.card.matched {
+  animation: match-pulse 0.4s ease;
+}
+
+/* Aplica animación de "shake" a cartas incorrectas */
+
+.card.error {
+  animation: shake 0.45s ease;
+}
+
+/* Cuando el overlay está visible (no tiene la clase hidden),
+   aplica a la caja interna una animación de entrada tipo "drop"
+   y mantiene su estado final */
+
+.overlay:not(.hidden) .overlay-box {
+  animation: win-drop 0.4s ease forwards;
+}
+
+/* Permite posicionar el pseudo-elemento !MATCH! relativo al tablero */
+
+.board {
+  position: relative;
+}
+
+/* Muestra un mensaje ¡MATCH! cuando el tablero tiene la clase show-match */
+
+.board.show-match::after {
+  content: "!MATCH!";
+  position: absolute;
+  left: 50%;
+  top: -1.5rem;
+  font-size: 10px;
+  color: var(--color-gold);
+  text-shadow: 2px 2px 0 #000;
+  pointer-events: none;
+  animation: flash-in-out 900ms ease-out 1 both;
+}
