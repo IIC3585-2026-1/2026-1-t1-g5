@@ -7,4 +7,6 @@ const FLAGS = [
   { emoji: '🇮🇹', name: 'Italia' },
   { emoji: '🇦🇷', name: 'Argentina' },
   { emoji: '🇺🇸', name: 'EE.UU.' },
+  { emoji: '🇪🇸', name: 'España' },
+  { emoji: '🇬🇧', name: 'Reino Unido' },
 ];

@@ -111,3 +111,14 @@
     font-size: 8px;
     margin: 0;
   }
+
+  .select-pixel {
+    background: var(--color-accent2);
+    color: var(--color-text);
+    border: var(--border-width) solid var(--color-accent);
+    font-family: var(--font-pixel);
+    font-size: 9px;
+    padding: 10px 12px;
+    cursor: pointer;
+    letter-spacing: 1px;
+  }
