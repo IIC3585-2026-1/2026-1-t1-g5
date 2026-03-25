@@ -9,6 +9,9 @@
   --color-match:     #4ecca3;
   --color-text:      #eaeaea;
 
+  --color-card-front: #111;
+  --color-overlay-backdrop: rgba(10, 10, 30, 0.92);
+
   --card-size:       calc(70px + 4vw);
   --gap:             clamp(6px, 1.5vw, 14px);
   --border-width:    3px;
@@ -24,4 +27,16 @@ body {
   font-family: var(--font-pixel);
   min-height: 100vh;
   margin: 0;
+}
+
+body.light {
+  --color-bg: #f6f4f4;
+  --color-surface: #ffffff;
+  --color-accent: #2f6bff;
+  --color-accent2: #dfe8ff;
+  --color-gold: #b7791f;
+  --color-match: #2f855a;
+  --color-text: #1f2430;
+  --color-card-front: #ffffff;
+  --color-overlay-backdrop: rgba(255, 255, 255, 0.9);
 }
