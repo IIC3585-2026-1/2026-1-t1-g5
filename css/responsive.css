@@ -1,0 +1,32 @@
+/* Media query (cuando ventana es menor o igual a 520px):
+   reduce el tablero a 3 columnas para que las cartas no se salgan en pantallas pequeñas */
+
+@media (max-width: 520px) {
+  .board {
+    grid-template-columns: repeat(3, var(--card-size));
+  }
+}
+
+/* Media query (cuando ventana es menor o igual a 360px):
+   en celulares muy angostos, baja el tablero a 2 columnas */
+
+@media (max-width: 360px) {
+  .board {
+    grid-template-columns: repeat(2, var(--card-size));
+  }
+}
+
+/* Container query (cuando carta es menor o igual a 85px):
+   adapta el contenido interno de la carta, oculta el nombre y reduce el emoji */
+
+@container (max-width: 85px) {
+  .flag-name {display: none;}
+  .flag-emoji {font-size: 22px;}
+}
+
+/* Container query (cuando carta es menor o igual a 65px):
+   ajuste extra para cartas muy pequeñas, reduce aún más de tamaño el emoji */
+
+@container (max-width: 65px) {
+  .flag-emoji {font-size: 16px;}
+}
