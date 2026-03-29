@@ -1,3 +1,5 @@
+/* Layout principal del juego, centra secciones y reparte espacio vertical */
+
 .game-wrapper {
     display: flex;
     flex-direction: column;
@@ -7,6 +9,8 @@
     min-height: 100vh;
   }
   
+  /* HUD superior con puntaje, título y movimientos */   
+
   .hud {
     display: flex;
     justify-content: space-between;
@@ -17,6 +21,8 @@
     border: var(--border-width) solid var(--color-accent);
     padding: 10px 20px;
   }
+
+  /* Agrupa etiqueta y valor dentro del HUD */
   
   .hud-item {
     display: flex;
@@ -24,22 +30,30 @@
     align-items: center;
     gap: 6px;
   }
+
+  /* Etiquetas secundarias del HUD con texto pequeño */
   
   .hud-label {
     font-size: 7px;
     color: var(--color-gold);
     letter-spacing: 1px;
   }
+
+  /* Valor principal del HUD */
   
   .hud-value {
     font-size: 16px;
   }
+
+  /* Título del juego */
   
   .hud-title {
     font-size: 10px;
     color: var(--color-accent);
     letter-spacing: 2px;
   }
+
+  /* Panel del contador de tiempo */
 
   .timer-panel {
     width: 100%;
@@ -52,16 +66,22 @@
     padding: 8px 12px;
   }
 
+  /* Encabezado del time, con etiqueta y el tiempo restante */
+
   .timer-head {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
+  /* Formato visual del tiempo mostrado en minutos y los segundos restantes */
+
   .timer-value {
     font-size: 10px;
     color: var(--color-gold);
   }
+
+  /* Pista de la barra de tiempo */
 
   .timer-track {
     width: 100%;
@@ -71,6 +91,8 @@
     overflow: hidden;
   }
 
+  /* Barra de progreso del tiempo, la cual es contrlada por la variable de --timer-progress que es variable css */
+
   .timer-bar {
     --timer-progress: 100;
     width: calc(var(--timer-progress) * 1%);
@@ -79,19 +101,27 @@
     transition: --timer-progress 1s linear;
   }
 
+  /* Estado de advertencia de tiempo bajo en el juego */
+
   .timer-panel.warning .timer-bar {
     background: var(--color-gold);
   }
 
+  /* Estado muy crítico de tiempo casi agotado */
+
   .timer-panel.danger .timer-bar {
     background: var(--color-accent);
   }
+
+  /* Tablero de cartas en el grid */
   
   .board {
     display: grid;
     grid-template-columns: repeat(4, var(--card-size));
     gap: var(--gap);
   }
+
+  /* Zona de controles inferiores */
   
   .controls {
     display: flex;
@@ -99,6 +129,8 @@
     gap: 0.75rem;
     flex-wrap: wrap;
   }
+
+  /* Botón estilo pixel y los estados interactivos */
   
   .btn-pixel {
     background: var(--color-accent2);
@@ -114,6 +146,8 @@
   
   .btn-pixel:hover  { background: var(--color-accent); }
   .btn-pixel:active { transform: scale(0.97); }
+
+  /* Overlay de fin de juego con fondo, caja y resumen de resultados */
   
   .overlay {
     position: fixed;
@@ -157,6 +191,8 @@
     font-size: 8px;
     margin: 0;
   }
+
+  /* Select de dificultad con estilo pixel */
 
   .select-pixel {
     background: var(--color-accent2);

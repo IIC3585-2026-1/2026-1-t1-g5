@@ -1,25 +1,25 @@
-.card {
-    width: var(--card-size);
-    height: var(--card-size);
+.card { /* Se inicia el contenedor de una carta */
+    width: var(--card-size); /* Ancho carta*/
+    height: var(--card-size); /* Alto carta */
     cursor: pointer;
     perspective: 600px;
     container-type: inline-size;
   
-    & .card-inner {
-      width: 100%;
+    & .card-inner { /* Selector anidado para card-inner, la parte interior de la carta */
+      width: 100%; /* Usa el 100% del .card */
       height: 100%;
       position: relative;
       transform-style: preserve-3d;
-      transition: transform var(--transition-flip);
+      transition: transform var(--transition-flip); /* Transición suave de tipo flip */
     }
   
-    & .card-face {
-      position: absolute;
+    & .card-face { /* Bloque común para ambas caras de la carta */
+      position: absolute; /* Las caras se superponen ocupando todo  */
       inset: 0;
-      backface-visibility: hidden;
+      backface-visibility: hidden; /* Se oculta espalda de una cara cuando gira */
       border: var(--border-width) solid var(--color-accent2);
       border-radius: var(--radius);
-      display: flex;
+      display: flex; /* Centrar contenido de cada cara */
       flex-direction: column;
       align-items: center;
       justify-content: center;
@@ -27,11 +27,11 @@
       overflow: hidden;
     }
   
-    & .card-back {
-      background: var(--color-accent2);
+    & .card-back { /* Bloque para la parte trasera de la carta */
+      background: var(--color-accent2); /* Fondo trasero */
   
-      & .pixel-grid {
-        position: absolute;
+      & .pixel-grid { /* Sub-bloque de la rejilla decorativa */
+        position: absolute; 
         inset: 0;
         opacity: 0.1;
         background-image:
@@ -40,7 +40,7 @@
         background-size: 10px 10px;
       }
   
-      & .card-question {
+      & .card-question { /* Sub-bloque para el signo de interrogación en la carta */
         font-size: 24px;
         color: var(--color-accent);
         text-shadow: 3px 3px 0 #000;
@@ -48,24 +48,24 @@
       }
     }
   
-    & .card-front {
-      background: var(--color-card-front);
+    & .card-front { /* Bloque para la parte frontal de la carta */
+      background: var(--color-card-front); /* Fondo variable por tema */
       border-color: var(--color-accent);
+      transform: rotateY(180deg); /* Parte rotada en 180, para mostrarse al girar */
+    }
+  
+    &.flipped .card-inner { /* Este es el estado flipper de card-inner, donde se revela el frente de la carta */
       transform: rotateY(180deg);
     }
   
-    &.flipped .card-inner {
-      transform: rotateY(180deg);
-    }
-  
-    &.matched .card-face.card-front {
+    &.matched .card-face.card-front { /* Estado matched que afecta el color del borde del frente */
       border-color: var(--color-match);
     }
   
-    &.matched .card-inner {
+    &.matched .card-inner { /* En el estado martched se mantiene el giro de la carta */
       transform: rotateY(180deg);
     }
   }
   
-  .flag-emoji { font-size: 28px; line-height: 1; }
-  .flag-name  { font-size: 6px; color: var(--color-gold); text-align: center; }
+  .flag-emoji { font-size: 28px; line-height: 1; } /* Tamaño del emoji de la bandera */
+  .flag-name  { font-size: 6px; color: var(--color-gold); text-align: center; } /* Estilo del nombre del país */
