@@ -1,7 +1,7 @@
 const DIFFICULTY_CONFIG = Object.freeze({
-  easy: { pairsCount: 4, cols: 2 },
-  normal: { pairsCount: 8, cols: 4 },
-  hard: { pairsCount: 10, cols: 5 },
+  easy: { pairsCount: 4, cols: 2, timeLimitSec: 45 },
+  normal: { pairsCount: 8, cols: 4, timeLimitSec: 75 },
+  hard: { pairsCount: 10, cols: 5, timeLimitSec: 90 },
 });
 
 const DEFAULT_DIFFICULTY = 'normal';
@@ -11,7 +11,11 @@ const MATCH_FLASH_MS = 900;
 const boardEl = document.getElementById('board');
 const scoreEl = document.getElementById('score');
 const movesEl = document.getElementById('moves');
+const timerPanelEl = document.getElementById('timer-panel');
+const timerValueEl = document.getElementById('timer-value');
+const timerBarEl = document.getElementById('timer-bar');
 const overlayEl = document.getElementById('overlay');
+const overlayTitleEl = document.getElementById('overlay-title');
 const finalScoreEl = document.getElementById('final-score');
 const finalMovesEl = document.getElementById('final-moves');
 const starsEl = document.getElementById('stars');
@@ -25,11 +29,15 @@ const state = {
   firstCard: null,
   secondCard: null,
   lockBoard: false,
+  gameFinished: false,
   moves: 0,
   matchedPairs: 0,
   totalPairs: DIFFICULTY_CONFIG[DEFAULT_DIFFICULTY].pairsCount,
   score: 0,
   flashTimeoutId: null,
+  timerIntervalId: null,
+  timeLimitSec: DIFFICULTY_CONFIG[DEFAULT_DIFFICULTY].timeLimitSec,
+  secondsLeft: DIFFICULTY_CONFIG[DEFAULT_DIFFICULTY].timeLimitSec,
 };
 
 function getDifficultyConfig(difficulty) {
@@ -49,15 +57,60 @@ function getStarsByScore() {
   return '★';
 }
 
+function formatTime(totalSeconds) {
+  const mins = Math.floor(totalSeconds / 60);
+  const secs = totalSeconds % 60;
+  return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+}
+
 function updateHud() {
   if (scoreEl) scoreEl.textContent = String(state.score);
   if (movesEl) movesEl.textContent = String(state.moves);
 }
 
+function updateTimerUi() {
+  if (timerValueEl) timerValueEl.textContent = formatTime(state.secondsLeft);
+  if (!timerBarEl || state.timeLimitSec <= 0) return;
+
+  const progress = Math.max(0, (state.secondsLeft / state.timeLimitSec) * 100);
+  timerBarEl.style.setProperty('--timer-progress', String(progress));
+
+  if (timerPanelEl) {
+    timerPanelEl.classList.toggle('warning', progress <= 40 && progress > 20);
+    timerPanelEl.classList.toggle('danger', progress <= 20);
+  }
+}
+
+function clearTimer() {
+  if (state.timerIntervalId) {
+    clearInterval(state.timerIntervalId);
+    state.timerIntervalId = null;
+  }
+}
+
+function startTimer() {
+  clearTimer();
+  updateTimerUi();
+
+  state.timerIntervalId = setInterval(() => {
+    if (state.gameFinished) {
+      clearTimer();
+      return;
+    }
+
+    state.secondsLeft = Math.max(0, state.secondsLeft - 1);
+    updateTimerUi();
+
+    if (state.secondsLeft === 0) {
+      finishGame('timeout');
+    }
+  }, 1000);
+}
+
 function resetTurn() {
   state.firstCard = null;
   state.secondCard = null;
-  state.lockBoard = false;
+  state.lockBoard = state.gameFinished;
 }
 
 function showMatchFlash() {
@@ -73,15 +126,29 @@ function showMatchFlash() {
   }, MATCH_FLASH_MS);
 }
 
-function showWinOverlay() {
+function showOverlay(title) {
+  if (overlayTitleEl) overlayTitleEl.textContent = title;
   if (finalScoreEl) finalScoreEl.textContent = String(state.score);
   if (finalMovesEl) finalMovesEl.textContent = String(state.moves);
   if (starsEl) starsEl.textContent = getStarsByScore();
   if (overlayEl) overlayEl.classList.remove('hidden');
 }
 
-function hideWinOverlay() {
+function hideOverlay() {
   if (overlayEl) overlayEl.classList.add('hidden');
+}
+
+function finishGame(reason) {
+  if (state.gameFinished) return;
+  state.gameFinished = true;
+  state.lockBoard = true;
+  clearTimer();
+
+  if (reason === 'win') {
+    showOverlay('¡GANASTE!');
+  } else {
+    showOverlay('¡TIEMPO AGOTADO!');
+  }
 }
 
 function handleMatch() {
@@ -95,7 +162,7 @@ function handleMatch() {
   resetTurn();
 
   if (state.matchedPairs === state.totalPairs) {
-    showWinOverlay();
+    finishGame('win');
   }
 }
 
@@ -117,7 +184,7 @@ function handleMismatch() {
 }
 
 function onCardClick(event) {
-  if (!boardEl || state.lockBoard) return;
+  if (!boardEl || state.lockBoard || state.gameFinished) return;
 
   const clickedCard = event.target.closest('.card');
   if (!clickedCard || !boardEl.contains(clickedCard)) return;
@@ -142,8 +209,10 @@ function onCardClick(event) {
 }
 
 function renderBoardByDifficulty() {
-  const { pairsCount, cols } = getDifficultyConfig(state.difficulty);
+  const { pairsCount, cols, timeLimitSec } = getDifficultyConfig(state.difficulty);
   state.totalPairs = pairsCount;
+  state.timeLimitSec = timeLimitSec;
+  state.secondsLeft = timeLimitSec;
   createBoard({ pairsCount, cols });
   if (boardEl) boardEl.style.gridTemplateColumns = `repeat(${cols}, var(--card-size))`;
 }
@@ -152,16 +221,23 @@ function resetGameState() {
   state.firstCard = null;
   state.secondCard = null;
   state.lockBoard = false;
+  state.gameFinished = false;
   state.moves = 0;
   state.matchedPairs = 0;
   state.score = 0;
+  if (state.flashTimeoutId) clearTimeout(state.flashTimeoutId);
+  state.flashTimeoutId = null;
+  if (boardEl) boardEl.classList.remove('show-match');
+  clearTimer();
   updateHud();
 }
 
 function startNewGame() {
-  hideWinOverlay();
+  hideOverlay();
   resetGameState();
   renderBoardByDifficulty();
+  updateTimerUi();
+  startTimer();
 }
 
 function initThemeToggle() {
