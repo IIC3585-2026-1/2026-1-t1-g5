@@ -45,9 +45,5 @@ function createBoard({
   const deck = buildDeck(flags, pairsCount);
   board.replaceChildren(...deck.map(createCardElement));
 
-  // Opción A (recomendada): usar variable CSS
   board.style.setProperty('--board-cols', String(cols));
-
-  // Opción B (si no quieres tocar CSS):
-  // board.style.gridTemplateColumns = `repeat(${cols}, var(--card-size))`;
 }
