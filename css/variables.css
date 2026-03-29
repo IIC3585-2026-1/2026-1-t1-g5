@@ -1,6 +1,9 @@
+/* Importa la tipografía usada en toda la interfaz */
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
+/* Variables globales del tema base y de diseño */
 :root {
+  /* Paleta principal del juego */
   --color-bg:        #1a1a2e;
   --color-surface:   #16213e;
   --color-accent:    #e94560;
@@ -9,18 +12,22 @@
   --color-match:     #4ecca3;
   --color-text:      #eaeaea;
 
+  /* Colores específicos de componentes */
   --color-card-front: #111;
   --color-overlay-backdrop: rgba(10, 10, 30, 0.92);
 
+  /* Escalas y medidas reutilizables de layout y animación */
   --card-size:       calc(70px + 4vw);
   --gap:             clamp(6px, 1.5vw, 14px);
   --border-width:    3px;
   --radius:          4px;
   --transition-flip: 0.35s;
 
+  /* Fuente base reutilizable en componentes */
   --font-pixel:      'Press Start 2P', monospace;
 }
 
+/* Estilos base del documento */
 body {
   background-color: var(--color-bg);
   color: var(--color-text);
@@ -29,6 +36,7 @@ body {
   margin: 0;
 }
 
+/* Tema claro, en esencia sobrescribe variables del tema base */
 body.light {
   --color-bg: #f6f4f4;
   --color-surface: #ffffff;

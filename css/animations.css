@@ -1,13 +1,13 @@
+/* Registra la variable timer progress como número animable, 
+con valor inicial 100 para controlar la barra del timer */
 @property --progress {
   syntax: "<number>";
   inherits: false;
   initial-value: 100;
 }
 
-/* Animación tipo "pulse" para indicar un match
-   - Parte en escala normal (1)
-   - En la mitad crece ligeramente (1.1)
-   - Vuelve a escala normal al final */
+/* Animación tipo "pulse" para indicar un match Parte en escala normal (1)
+En la mitad crece ligeramente (1.1) Vuelve a escala normal al final */
 
 @keyframes match-pulse {
   0%, 100% { transform: scale(1); }
@@ -15,10 +15,7 @@
 }
 
 /* Animación de "shake" para indicar error (no match de cartas)
-   - Parte en posición original
-   - Se mueve a la izquierda
-   - Luego a la derecha
-   - Finalmente vuelve al centro */
+Parte en posición original, se mueve a la izquierda, luego a la derecha y finalmente vuelve al centro */
 
 @keyframes shake {
   0%   { transform: translateX(0); }
@@ -27,9 +24,7 @@
   100% { transform: translateX(0); }
 }
 
-/* Animación de entrada tipo "drop":
-   el elemento aparece desde arriba, con un leve zoom y fade-in,
-   hasta su posición y tamaño normal */
+/* Animación de entrada tipo "drop", el elemento aparece desde arriba, con un leve zoom y fade-in, hasta su posición y tamaño normal */
 
 @keyframes win-drop {
   0% {
@@ -42,9 +37,7 @@
   }
 }
 
-/* Animación tipo "flash":
-   aparece rápidamente desde abajo, se mantiene visible,
-   y luego desaparece hacia arriba con un leve zoom */
+/* Animación tipo "flash", aparece rápidamente desde abajo, se mantiene visible, y luego desaparece hacia arriba con un leve zoom */
 
 @keyframes flash-in-out {
   0% {
