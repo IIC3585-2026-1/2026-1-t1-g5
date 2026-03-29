@@ -1,3 +1,4 @@
+// Constante con las banderas disponibles
 const FLAGS = [
   { emoji: '🇨🇱', name: 'Chile' },
   { emoji: '🇧🇷', name: 'Brasil' },

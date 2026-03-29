@@ -30,6 +30,16 @@
       </div>
     </header>
 
+    <section class="timer-panel" id="timer-panel" aria-label="Tiempo restante">
+      <div class="timer-head">
+        <span class="hud-label">TIME</span>
+        <span class="timer-value" id="timer-value">00:00</span>
+      </div>
+      <div class="timer-track">
+        <div class="timer-bar" id="timer-bar"></div>
+      </div>
+    </section>
+
     <main class="board" id="board"></main>
 
     <footer class="controls">
@@ -44,7 +54,7 @@
 
     <div class="overlay hidden" id="overlay">
       <div class="overlay-box">
-        <p class="overlay-title">¡GANASTE!</p>
+        <p class="overlay-title" id="overlay-title">¡GANASTE!</p>
         <div class="stars" id="stars">★★★</div>
         <p class="overlay-score">SCORE: <span id="final-score">0</span></p>
         <p class="overlay-moves">MOVES: <span id="final-moves">0</span></p>
