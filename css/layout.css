@@ -40,6 +40,52 @@
     color: var(--color-accent);
     letter-spacing: 2px;
   }
+
+  .timer-panel {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: var(--color-surface);
+    border: var(--border-width) solid var(--color-accent2);
+    padding: 8px 12px;
+  }
+
+  .timer-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .timer-value {
+    font-size: 10px;
+    color: var(--color-gold);
+  }
+
+  .timer-track {
+    width: 100%;
+    height: 10px;
+    border: var(--border-width) solid var(--color-accent2);
+    background: rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+  }
+
+  .timer-bar {
+    --timer-progress: 100;
+    width: calc(var(--timer-progress) * 1%);
+    height: 100%;
+    background: var(--color-match);
+    transition: --timer-progress 1s linear;
+  }
+
+  .timer-panel.warning .timer-bar {
+    background: var(--color-gold);
+  }
+
+  .timer-panel.danger .timer-bar {
+    background: var(--color-accent);
+  }
   
   .board {
     display: grid;

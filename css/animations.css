@@ -1,3 +1,9 @@
+@property --timer-progress {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 100;
+}
+
 /* Animación tipo "pulse" para indicar un match
    - Parte en escala normal (1)
    - En la mitad crece ligeramente (1.1)
