@@ -51,6 +51,10 @@ Este proyecto implementa un juego tipo Memorice para mostrar elementos modernos 
 - `js/game.js` controla estado, clicks, puntaje, timer, dificultad, overlay y reinicio.
 - El CSS responde a clases de estado (`.flipped`, `.matched`, `.error`, `.show-match`) agregadas desde JS.
 
+## Uso
+
+Simplemente abrir el HTML en algún browser.
+
 ## Uso de IA
 
 Durante el desarrollo usamos herramientas de IA (como Codex y Claude) como apoyo técnico, principalmente para:
