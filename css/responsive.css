@@ -2,18 +2,15 @@
    reduce el tablero a 3 columnas para que las cartas no se salgan en pantallas pequeñas */
 
 @media (max-width: 520px) {
-  .board {
-    grid-template-columns: repeat(3, var(--card-size));
-  }
+  .board.cols-4,
+  .board.cols-5 { --board-cols: 3; }
 }
 
 /* Media query (cuando ventana es menor o igual a 360px):
    en celulares muy angostos, baja el tablero a 2 columnas */
 
 @media (max-width: 360px) {
-  .board {
-    grid-template-columns: repeat(2, var(--card-size));
-  }
+  .board { --board-cols: 2; }
 }
 
 /* Container query (cuando carta es menor o igual a 85px):

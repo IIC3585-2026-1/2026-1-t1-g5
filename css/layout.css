@@ -117,9 +117,13 @@
   
 .board {
   display: grid;
-  grid-template-columns: repeat(4, var(--card-size));
+  grid-template-columns: repeat(var(--board-cols, 4), var(--card-size));
   gap: var(--gap);
   }
+
+  .board.cols-2 { --board-cols: 2; }
+  .board.cols-4 { --board-cols: 4; }
+  .board.cols-5 { --board-cols: 5; }
   
   /* Zona de controles inferiores */
 

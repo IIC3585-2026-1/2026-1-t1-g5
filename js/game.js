@@ -121,7 +121,10 @@ function renderBoardByDifficulty() {
   timeLimitSec = difficultyTime;
   secondsLeft = difficultyTime;
   createBoard({ pairsCount, cols });
-  if (board) board.style.gridTemplateColumns = `repeat(${cols}, var(--card-size))`;
+  if (board) {
+    board.classList.remove('cols-2', 'cols-4', 'cols-5');
+    board.classList.add(`cols-${cols}`);
+  }
   addCardListeners();
 }
 

@@ -53,6 +53,4 @@ function createBoard({
 
   const deck = buildDeck(flags, pairsCount);
   board.replaceChildren(...deck.map(createCardElement));
-
-  board.style.setProperty('--board-cols', String(cols));
 }
